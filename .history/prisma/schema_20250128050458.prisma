@@ -19,7 +19,7 @@ model Customer {
   email String
   phone String
   credit Int?
-  Order Order[]
+  order Order[]
 }
 
 model Order {
@@ -27,13 +27,4 @@ model Order {
   customerId String @db.ObjectId
   customer Customer @relation(fields: [customerId], references: [id])
   amount Int
-  Product Product? @relation(fields: [productId], references: [id])
-  productId String? @db.ObjectId
-}
-
-model Product {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  price Int
-  Order Order[]
 }

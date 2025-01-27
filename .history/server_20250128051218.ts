@@ -206,28 +206,6 @@ app.get('/customer/listAllOrder' , async (req,res)=> {
         return res.status(500).send({ error: error.message})
     }
 });
-app.get('/customer/listOrderAndProduct/:customerId' , async (req,res)=> {
-    try{
-        const customerId = req.params.customerId
-        const customer = await prisma.customer.findMany({
-            where : {
-                id : customerId
-            },
-            include : {
-                Order : {
-                    include : {
-                        Product : true
-                    }
-                }
-            }
-    });
-    res.json(customer);
-    }catch(error){
-        return res.status(500).send({ error: error.message})
-    }
-});
-
-
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

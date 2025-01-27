@@ -182,7 +182,7 @@ app.post('/order/create', async (req,res)=>{
 app.get('/customer/listOrder/:customerId', async (req,res)=>{
     try{
         const customerId = req.params.customerId;
-        const orders = await prisma.Order.findMany({
+        const orders = await prisma.order.findMany({
             where: {
                 customerId: customerId
             }
@@ -192,42 +192,6 @@ app.get('/customer/listOrder/:customerId', async (req,res)=>{
         return res.status(500).send({ error: error.message})
     }
 });
-
-//Show order by customer
-app.get('/customer/listAllOrder' , async (req,res)=> {
-    try{
-        const orders = await prisma.customer.findMany({
-            include: {
-                Order: true
-            }
-        });
-        res.json(orders);
-    }catch(error){
-        return res.status(500).send({ error: error.message})
-    }
-});
-app.get('/customer/listOrderAndProduct/:customerId' , async (req,res)=> {
-    try{
-        const customerId = req.params.customerId
-        const customer = await prisma.customer.findMany({
-            where : {
-                id : customerId
-            },
-            include : {
-                Order : {
-                    include : {
-                        Product : true
-                    }
-                }
-            }
-    });
-    res.json(customer);
-    }catch(error){
-        return res.status(500).send({ error: error.message})
-    }
-});
-
-
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

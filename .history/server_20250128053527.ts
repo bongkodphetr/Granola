@@ -206,7 +206,7 @@ app.get('/customer/listAllOrder' , async (req,res)=> {
         return res.status(500).send({ error: error.message})
     }
 });
-app.get('/customer/listOrderAndProduct/:customerId' , async (req,res)=> {
+app.get('/customer/listOrderAndProduct' , async (req,res)=> {
     try{
         const customerId = req.params.customerId
         const customer = await prisma.customer.findMany({
